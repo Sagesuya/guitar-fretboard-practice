@@ -190,8 +190,9 @@
 
     function positionsInRange(predicate = () => true) {
       const positions = [];
+      const { start, end } = mainFretRange();
       strings.forEach(string => {
-        for (let fret = 0; fret <= Number(state.fretCount); fret += 1) {
+        for (let fret = start; fret <= end; fret += 1) {
           const pc = mod(string.pc + fret, 12);
           if (predicate({ pc, fret, string })) {
             positions.push({ stringId: string.id, stringLabel: stringLabel(string), fret, pc });

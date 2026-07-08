@@ -297,6 +297,16 @@
       }
     });
 
+    handheldLandscapeQuery.addEventListener("change", () => {
+      syncControlDisclosure();
+      if (state.fretWindow === "auto") {
+        state.question = null;
+        state.rootHits.clear();
+        els.answerButtons.innerHTML = "";
+        renderAll();
+      }
+    });
+
     loadSettings();
     syncControlDisclosure();
     populateKeys();

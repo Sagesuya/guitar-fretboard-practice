@@ -235,7 +235,7 @@
         answerFindNote: note => `Answer: click any ${note}.`,
         answerFindDegree: (degree, note) => `Answer: degree ${degree} is ${note}.`,
         answerRoots: note => `Answer: every ${note} is a tonic.`,
-        answerScaleRun: note => `Current target: ${note}.",
+        answerScaleRun: note => `Current target: ${note}.`,
         nameAnswer: (string, fret, note) => `Correct: ${string}, fret ${fret} is ${note}.`,
         wrongNameAnswer: note => `Nope, this position is ${note}.`,
         stringLabel: (number, note) => `String ${number} ${note}`

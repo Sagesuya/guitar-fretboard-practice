@@ -67,10 +67,10 @@
     function applyQuestionOverlay(note, pc, fret, stringName) {
       const q = state.question;
       let isTarget = false;
-      if (q.type === "findNote") isTarget = pc === q.pc && isInPracticeRange(fret);
-      if (q.type === "findDegree") isTarget = pc === q.pc && isInPracticeRange(fret);
-      if (q.type === "findRoots") isTarget = pc === state.root && isInPracticeRange(fret) && !state.rootHits.has(note.dataset.id);
-      if (q.type === "scaleRun") isTarget = pc === q.pc && isInPracticeRange(fret);
+      if (q.type === "findNote") isTarget = pc === q.pc;
+      if (q.type === "findDegree") isTarget = pc === q.pc;
+      if (q.type === "findRoots") isTarget = pc === state.root && !state.rootHits.has(note.dataset.id);
+      if (q.type === "scaleRun") isTarget = pc === q.pc;
       if (q.type === "identifyPosition") isTarget = fret === q.fret && stringName === q.stringId;
       if (!isTarget) note.classList.add("muted");
     }
@@ -81,7 +81,7 @@
       const rootName = noteName(state.root);
       els.currentScalePill.textContent = `${rootName} ${currentModeLabel}`;
       els.displayModePill.textContent = state.visibility === "highlight" ? t("allNotesVisible") : t("scaleOnly");
-      els.scaleMeta.textContent = `${rootName} ${currentModeLabel}, ${t("fixedDoNotes")}: ${scale.map(noteName).join(" - ")} · ${t("currentRange")}: ${rangeLabel()}`;
+      els.scaleMeta.textContent = `${rootName} ${currentModeLabel}, ${t("fixedDoNotes")}: ${scale.map(noteName).join(" - ")}`;
       els.scaleList.innerHTML = "";
       const degrees = currentDegrees();
       scale.forEach((pc, index) => {
@@ -192,7 +192,6 @@
       const positions = [];
       strings.forEach(string => {
         for (let fret = 0; fret <= Number(state.fretCount); fret += 1) {
-          if (!isInPracticeRange(fret)) continue;
           const pc = mod(string.pc + fret, 12);
           if (predicate({ pc, fret, string })) {
             positions.push({ stringId: string.id, stringLabel: stringLabel(string), fret, pc });

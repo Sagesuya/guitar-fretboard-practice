@@ -188,6 +188,14 @@
         state.fretCount = Number(event.target.value);
         renderAll();
       });
+      els.fretWindowSelect.addEventListener("change", event => {
+        state.fretWindow = event.target.value;
+        state.question = null;
+        state.rootHits.clear();
+        els.answerButtons.innerHTML = "";
+        setFeedback("");
+        renderAll();
+      });
       els.visibilitySelect.addEventListener("change", event => {
         state.visibility = event.target.value;
         renderAll();
@@ -273,7 +281,24 @@
       });
     }
 
+    function syncControlDisclosure() {
+      document.querySelectorAll(".control-section").forEach((section, index) => {
+        section.open = isMobileLayout() ? index === 0 : true;
+      });
+    }
+
+    mobileQuery.addEventListener("change", () => {
+      syncControlDisclosure();
+      if (state.fretWindow === "auto") {
+        state.question = null;
+        state.rootHits.clear();
+        els.answerButtons.innerHTML = "";
+        renderAll();
+      }
+    });
+
     loadSettings();
+    syncControlDisclosure();
     populateKeys();
     bindEvents();
     renderAll();

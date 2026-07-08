@@ -10,12 +10,6 @@
         return;
       }
 
-      if (!isInPracticeRange(hit.fret)) {
-        setFeedback(t("outOfRange"), "bad");
-        animateNote(hit.el, "wrong");
-        return;
-      }
-
       if (q.type === "identifyPosition") {
         const isTarget = hit.stringId === q.stringId && hit.fret === q.fret;
         setFeedback(isTarget ? t("positionIs")(noteName(q.pc)) : t("useButtons"), isTarget ? "ok" : "");
@@ -200,14 +194,6 @@
       });
       els.solfegeSelect.addEventListener("change", event => {
         state.solfege = event.target.value;
-        renderAll();
-      });
-      els.practiceRangeSelect.addEventListener("change", event => {
-        state.practiceRange = event.target.value;
-        state.question = null;
-        state.rootHits.clear();
-        els.answerButtons.innerHTML = "";
-        setFeedback("");
         renderAll();
       });
       els.toggleNames.addEventListener("click", () => {

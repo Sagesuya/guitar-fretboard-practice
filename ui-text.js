@@ -14,6 +14,7 @@
         materialLabel: "素材",
         modeLabel: "类型",
         fretCountLabel: "显示品数",
+        fretWindowLabel: "视图范围",
         visibilityLabel: "调内显示",
         solfegeLabel: "显示体系",
         noteNameLabel: "音名",
@@ -26,6 +27,7 @@
         metronomeTitle: "节拍器",
         tempoLabel: "速度",
         accidentalOptions: { sharp: "升号 C#", flat: "降号 Db" },
+        fretWindowOptions: { auto: "自动", all: "全部品位" },
         chordPositionOptions: { all: "全部品位" },
         materialOptions: { scale: "音阶", arpeggio: "琶音" },
         modeOptions: {
@@ -130,6 +132,7 @@
         materialLabel: "Material",
         modeLabel: "Pattern",
         fretCountLabel: "Frets",
+        fretWindowLabel: "View range",
         visibilityLabel: "Scale display",
         solfegeLabel: "Display system",
         noteNameLabel: "Note names",
@@ -142,6 +145,7 @@
         metronomeTitle: "Metronome",
         tempoLabel: "Tempo",
         accidentalOptions: { sharp: "Sharps C#", flat: "Flats Db" },
+        fretWindowOptions: { auto: "Auto", all: "All frets" },
         chordPositionOptions: { all: "All frets" },
         materialOptions: { scale: "Scale", arpeggio: "Arpeggio" },
         modeOptions: {
@@ -227,7 +231,7 @@
         answerFindNote: note => `Answer: click any ${note}.`,
         answerFindDegree: (degree, note) => `Answer: degree ${degree} is ${note}.`,
         answerRoots: note => `Answer: every ${note} is a tonic.`,
-        answerScaleRun: note => `Current target: ${note}.`,
+        answerScaleRun: note => `Current target: ${note}.",
         nameAnswer: (string, fret, note) => `Correct: ${string}, fret ${fret} is ${note}.`,
         wrongNameAnswer: note => `Nope, this position is ${note}.`,
         stringLabel: (number, note) => `String ${number} ${note}`

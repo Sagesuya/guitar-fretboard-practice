@@ -7,7 +7,6 @@
       fretCountSelect: document.querySelector("#fretCountSelect"),
       visibilitySelect: document.querySelector("#visibilitySelect"),
       solfegeSelect: document.querySelector("#solfegeSelect"),
-      practiceRangeSelect: document.querySelector("#practiceRangeSelect"),
       toggleNames: document.querySelector("#toggleNames"),
       togglePracticeOverlay: document.querySelector("#togglePracticeOverlay"),
       toggleAutoNext: document.querySelector("#toggleAutoNext"),
@@ -57,7 +56,6 @@
         fretCountLabel: document.querySelector("#fretCountLabel"),
         visibilityLabel: document.querySelector("#visibilityLabel"),
         solfegeLabel: document.querySelector("#solfegeLabel"),
-        practiceRangeLabel: document.querySelector("#practiceRangeLabel"),
         noteNameLabel: document.querySelector("#noteNameLabel"),
         practiceLabel: document.querySelector("#practiceLabel"),
         scalePanelTitle: document.querySelector("#scalePanelTitle"),
@@ -80,7 +78,6 @@
       fretCount: 24,
       visibility: "highlight",
       solfege: "fixed",
-      practiceRange: "all",
       showNames: true,
       practiceOverlay: false,
       autoNext: true,
@@ -150,27 +147,6 @@
       if (state.solfege === "degree") return currentDegrees().get(pc) || degreeNames[interval];
       if (state.solfege === "movableNote") return movableNames[interval];
       return noteName(pc);
-    }
-
-    function currentRange() {
-      const max = Number(state.fretCount);
-      const ranges = {
-        all: [0, max],
-        low: [0, Math.min(5, max)],
-        mid: [Math.min(5, max), Math.min(12, max)],
-        high: [Math.min(12, max), max]
-      };
-      const [start, end] = ranges[state.practiceRange] || ranges.all;
-      return { start, end };
-    }
-
-    function rangeLabel() {
-      return t("rangeOptions")[state.practiceRange];
-    }
-
-    function isInPracticeRange(fret) {
-      const { start, end } = currentRange();
-      return fret >= start && fret <= end;
     }
 
     function chordPositionRange() {

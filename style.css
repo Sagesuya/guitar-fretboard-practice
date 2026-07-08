@@ -120,7 +120,7 @@
       min-width: 0;
     }
 
-    .control-section h2 {
+    .control-section summary {
       margin: 0;
       padding-bottom: 7px;
       border-bottom: 1px solid var(--line);
@@ -128,6 +128,9 @@
       font-size: 13px;
       line-height: 1.2;
       letter-spacing: 0;
+      font-weight: 800;
+      cursor: pointer;
+      list-style-position: outside;
     }
 
     .control-fields {
@@ -204,6 +207,8 @@
 
     .fretboard-wrap {
       overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
       padding-bottom: 8px;
     }
 
@@ -422,6 +427,8 @@
 
     .chord-board-wrap {
       overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
       padding-bottom: 6px;
     }
 
@@ -703,28 +710,257 @@
 
     @media (max-width: 720px) {
       .app {
-        padding: 14px;
+        padding: 10px;
       }
 
       header {
         display: block;
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        font-size: 21px;
+      }
+
+      .subtitle {
+        display: none;
       }
 
       .header-actions {
         justify-items: start;
-        margin-top: 12px;
+        margin-top: 10px;
       }
 
       .status-strip {
         justify-content: flex-start;
+        gap: 6px;
+      }
+
+      .pill {
+        padding: 6px 9px;
+        font-size: 12px;
+      }
+
+      .language-control {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .controls {
+        padding: 8px;
+        margin-bottom: 10px;
       }
 
       .control-groups {
         grid-template-columns: 1fr;
+        gap: 8px;
       }
 
       .control-fields {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .control-section {
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 9px;
+        background: #fafcfc;
+      }
+
+      .control-section summary {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .control-section[open] summary {
+        margin-bottom: 9px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .control-section.compact .control-fields {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      select,
+      input[type="number"],
+      input[type="range"],
+      .segmented button,
+      .toggle,
+      .answer-row button,
+      .primary-btn,
+      .plain-btn {
+        min-height: 42px;
+      }
+
+      .layout {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .main-stack,
+      .side {
+        display: contents;
+      }
+
+      .fretboard-panel {
+        order: 1;
+        padding: 8px;
+      }
+
+      .practice-module {
+        order: 2;
+      }
+
+      .scale-module {
+        order: 3;
+      }
+
+      #chordPanel {
+        order: 4;
+      }
+
+      .metronome-module {
+        order: 5;
+      }
+
+      .module {
+        padding: 10px;
+      }
+
+      .module h2 {
+        font-size: 15px;
+        margin-bottom: 9px;
+      }
+
+      .fretboard {
+        grid-template-rows: repeat(6, 48px);
+      }
+
+      .string-row {
+        min-height: 48px;
+      }
+
+      .fret-cell {
+        min-width: 48px;
+      }
+
+      .fret-cell.open {
+        min-width: 56px;
+      }
+
+      .note {
+        width: 34px;
+        height: 34px;
+        font-size: 11px;
+      }
+
+      .fret-label {
+        min-width: 48px;
+      }
+
+      .fret-label.open {
+        min-width: 56px;
+      }
+
+      .marker {
+        min-width: 48px;
+      }
+
+      .marker.open {
+        min-width: 56px;
+      }
+
+      .question {
+        min-height: 70px;
+        padding: 10px;
+      }
+
+      .question .task {
+        font-size: 16px;
+      }
+
+      .question .hint {
+        font-size: 12px;
+      }
+
+      .answer-row {
+        gap: 6px;
+      }
+
+      .answer-row button,
+      .primary-btn,
+      .plain-btn {
+        flex: 1 1 auto;
+        padding: 8px 9px;
+      }
+
+      .drill-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .chord-workbench {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .chord-board {
+        grid-template-rows: repeat(6, 42px);
+      }
+
+      .chord-string-row {
+        min-height: 42px;
+      }
+
+      .chord-cell {
+        min-width: 42px;
+      }
+
+      .chord-cell.open {
+        min-width: 52px;
+      }
+
+      .chord-board .note {
+        width: 32px;
+        height: 32px;
+      }
+
+      .chord-fret-label {
+        min-width: 42px;
+      }
+
+      .chord-fret-label.open {
+        min-width: 52px;
+      }
+
+      .metronome {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+
+      .metro-top {
+        grid-template-columns: auto auto;
+      }
+
+      .beat-light {
+        width: 38px;
+        height: 38px;
+      }
+
+      .bpm-readout {
+        font-size: 20px;
+        min-width: 74px;
+      }
+
+      #metroHelp {
+        display: none;
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .note:hover {
+        transform: none;
       }
     }
   

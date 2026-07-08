@@ -30,8 +30,8 @@
 
     <section class="panel controls" aria-label="控制面板">
       <div class="control-groups">
-        <section class="control-section">
-          <h2 id="tonalityGroupTitle">调性</h2>
+        <details class="control-section" open>
+          <summary id="tonalityGroupTitle">调性</summary>
           <div class="control-fields">
             <label>
               <span id="keyLabel">调</span>
@@ -55,10 +55,10 @@
               </select>
             </label>
           </div>
-        </section>
+        </details>
 
-        <section class="control-section">
-          <h2 id="materialGroupTitle">音阶与琶音</h2>
+        <details class="control-section" open>
+          <summary id="materialGroupTitle">音阶与琶音</summary>
           <div class="control-fields">
             <label>
               <span id="materialLabel">素材</span>
@@ -95,10 +95,10 @@
               </div>
             </div>
           </div>
-        </section>
+        </details>
 
-        <section class="control-section compact">
-          <h2 id="fretboardGroupTitle">指板</h2>
+        <details class="control-section compact" open>
+          <summary id="fretboardGroupTitle">指板</summary>
           <div class="control-fields">
             <label>
               <span id="fretCountLabel">显示品数</span>
@@ -110,11 +110,26 @@
               </select>
             </label>
 
+            <label>
+              <span id="fretWindowLabel">视图范围</span>
+              <select id="fretWindowSelect">
+                <option value="auto" selected>Auto</option>
+                <option value="all">All frets</option>
+                <option value="0-5">0-5</option>
+                <option value="3-8">3-8</option>
+                <option value="5-10">5-10</option>
+                <option value="7-12">7-12</option>
+                <option value="9-14">9-14</option>
+                <option value="12-17">12-17</option>
+                <option value="15-20">15-20</option>
+                <option value="19-24">19-24</option>
+              </select>
+            </label>
           </div>
-        </section>
+        </details>
 
-        <section class="control-section compact">
-          <h2 id="drillGroupTitle">练习偏好</h2>
+        <details class="control-section compact" open>
+          <summary id="drillGroupTitle">练习偏好</summary>
           <div class="control-fields">
             <div>
               <label id="practiceLabel">练习</label>
@@ -125,7 +140,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </details>
       </div>
     </section>
 
@@ -178,13 +193,13 @@
       </div>
 
       <aside class="side">
-        <section class="panel module">
+        <section class="panel module scale-module">
           <h2 id="scalePanelTitle">当前音阶</h2>
           <div class="small" id="scaleMeta"></div>
           <div class="scale-list" id="scaleList"></div>
         </section>
 
-        <section class="panel module">
+        <section class="panel module practice-module">
           <h2 id="practicePanelTitle">出题练习</h2>
           <div class="practice-box">
             <label>
@@ -213,7 +228,7 @@
           </div>
         </section>
 
-        <section class="panel module">
+        <section class="panel module metronome-module">
           <h2 id="metronomeTitle">节拍器</h2>
           <div class="metronome">
             <div class="metro-top">

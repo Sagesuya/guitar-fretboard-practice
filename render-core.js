@@ -23,12 +23,24 @@
           const hasSeventhOrExtension = selectedIntervals.some(interval => [1, 2, 5, 9, 10, 11].includes(interval));
           if (!hasThirdOrSus && !hasSeventhOrExtension && type.symbol !== "5") continue;
 
+          const optionalMissing = type.intervals.filter(interval => !selectedIntervals.includes(interval)).length - missingRequired.length;
+          const isInversion = bass !== root;
+          const invertedTriad = isInversion && type.intervals.length <= 3;
+          const rootedColorCompletion =
+            bass === root &&
+            !missingRequired.length &&
+            optionalMissing <= 1 &&
+            type.intervals.length >= 4 &&
+            matched.length >= 3;
           const score =
-            (exact ? 80 : 0) +
-            matched.length * 12 -
-            missingRequired.length * 8 +
-            (selectedIntervals.includes(0) ? 10 : -4) +
-            (bass === root ? 8 : 0) +
+            (exact ? 50 : 0) +
+            matched.length * 14 -
+            missingRequired.length * 20 -
+            optionalMissing * 5 +
+            (selectedIntervals.includes(0) ? 20 : -8) +
+            (bass === root ? 8 : -8) +
+            (rootedColorCompletion ? 55 : 0) -
+            (invertedTriad ? 35 : 0) +
             Math.min(type.intervals.length, 6);
 
           matches.push({
@@ -37,6 +49,9 @@
             root,
             bass,
             missing: missingRequired,
+            optionalMissing,
+            invertedTriad,
+            rootedColorCompletion,
             matched: matched.length,
             exact,
             score
@@ -98,9 +113,14 @@
       const { start, end } = mainFretRange();
       const columns = [];
       for (let fret = start; fret <= end; fret += 1) {
-        columns.push(fret === 0 ? "70px" : "minmax(58px, 1fr)");
+        columns.push(`${fretColumnWidth(fret)}px`);
       }
       return columns.join(" ");
+    }
+
+    function fretColumnWidth(fret) {
+      if (isHandheldLandscape()) return fret === 0 ? 46 : 44;
+      return fret === 0 ? 70 : 58;
     }
 
     function populateKeys() {
@@ -197,7 +217,7 @@
       const scale = currentScale();
       const scaleSet = new Set(scale);
       const grid = cellGridTemplate();
-      const boardWidth = `${Array.from({ length: end - start + 1 }, (_, index) => start + index).reduce((sum, fret) => sum + (fret === 0 ? 70 : 58), 0)}px`;
+      const boardWidth = `${Array.from({ length: end - start + 1 }, (_, index) => start + index).reduce((sum, fret) => sum + fretColumnWidth(fret), 0)}px`;
       els.fretboard.style.gridTemplateColumns = grid;
       els.fretboard.style.width = boardWidth;
       els.fretboard.style.minWidth = boardWidth;

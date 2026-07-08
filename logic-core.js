@@ -5,6 +5,7 @@
       materialSelect: document.querySelector("#materialSelect"),
       modeSelect: document.querySelector("#modeSelect"),
       fretCountSelect: document.querySelector("#fretCountSelect"),
+      fretWindowSelect: document.querySelector("#fretWindowSelect"),
       visibilitySelect: document.querySelector("#visibilitySelect"),
       solfegeSelect: document.querySelector("#solfegeSelect"),
       toggleNames: document.querySelector("#toggleNames"),
@@ -54,6 +55,7 @@
         materialLabel: document.querySelector("#materialLabel"),
         modeLabel: document.querySelector("#modeLabel"),
         fretCountLabel: document.querySelector("#fretCountLabel"),
+        fretWindowLabel: document.querySelector("#fretWindowLabel"),
         visibilityLabel: document.querySelector("#visibilityLabel"),
         solfegeLabel: document.querySelector("#solfegeLabel"),
         noteNameLabel: document.querySelector("#noteNameLabel"),
@@ -76,6 +78,7 @@
       material: "scale",
       mode: "major",
       fretCount: 24,
+      fretWindow: "auto",
       visibility: "highlight",
       solfege: "fixed",
       showNames: true,
@@ -93,6 +96,8 @@
       bpm: 80,
       lastTap: 0
     };
+
+    const mobileQuery = window.matchMedia("(max-width: 720px)");
 
     const storageKey = "guitar-fretboard-practice-v2";
 
@@ -147,6 +152,31 @@
       if (state.solfege === "degree") return currentDegrees().get(pc) || degreeNames[interval];
       if (state.solfege === "movableNote") return movableNames[interval];
       return noteName(pc);
+    }
+
+    function isMobileLayout() {
+      return mobileQuery.matches;
+    }
+
+    function rangeFromValue(value, defaultRange) {
+      if (value === "all") return { start: 0, end: Number(state.fretCount) };
+      if (value === "auto") return defaultRange;
+      const [start, end] = value.split("-").map(Number);
+      return { start, end: Math.min(end, Number(state.fretCount)) };
+    }
+
+    function normalizeRange(range) {
+      const maxFret = Number(state.fretCount);
+      const start = Math.min(Math.max(0, range.start), maxFret);
+      const end = Math.min(Math.max(start, range.end), maxFret);
+      return { start, end };
+    }
+
+    function mainFretRange() {
+      const autoRange = isMobileLayout()
+        ? { start: 0, end: Math.min(5, Number(state.fretCount)) }
+        : { start: 0, end: Number(state.fretCount) };
+      return normalizeRange(rangeFromValue(state.fretWindow, autoRange));
     }
 
     function chordPositionRange() {

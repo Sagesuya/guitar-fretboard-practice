@@ -223,7 +223,7 @@
         needNote: (target, hit) => `Try again: find ${target}; you clicked ${hit}.`,
         scaleDone: "Scale run complete.",
         nextNote: note => `Correct, next note: ${note}`,
-        answerPosition: note => `Answer: ${note}.",
+        answerPosition: note => `Answer: ${note}.`,
         answerFindNote: note => `Answer: click any ${note}.`,
         answerFindDegree: (degree, note) => `Answer: degree ${degree} is ${note}.`,
         answerRoots: note => `Answer: every ${note} is a tonic.`,

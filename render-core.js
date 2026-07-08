@@ -61,6 +61,7 @@
         material: state.material,
         mode: state.mode,
         fretCount: state.fretCount,
+        fretWindow: state.fretWindow,
         visibility: state.visibility,
         solfege: state.solfege,
         showNames: state.showNames,
@@ -94,8 +95,12 @@
     }
 
     function cellGridTemplate() {
-      const frets = Number(state.fretCount);
-      return `70px repeat(${frets}, minmax(58px, 1fr))`;
+      const { start, end } = mainFretRange();
+      const columns = [];
+      for (let fret = start; fret <= end; fret += 1) {
+        columns.push(fret === 0 ? "70px" : "minmax(58px, 1fr)");
+      }
+      return columns.join(" ");
     }
 
     function populateKeys() {
@@ -137,6 +142,7 @@
       });
       els.languageSelect.value = state.language;
       setSelectOptionText(els.accidentalSelect, t("accidentalOptions"));
+      setSelectOptionText(els.fretWindowSelect, t("fretWindowOptions"));
       setSelectOptionText(els.materialSelect, t("materialOptions"));
       populatePatterns();
       setSelectOptionText(els.visibilitySelect, t("visibilityOptions"));
@@ -167,6 +173,7 @@
       els.materialSelect.value = state.material;
       els.modeSelect.value = state.mode;
       els.fretCountSelect.value = String(state.fretCount);
+      els.fretWindowSelect.value = state.fretWindow;
       els.visibilitySelect.value = state.visibility;
       els.solfegeSelect.value = state.solfege;
       els.toggleNames.classList.toggle("active", state.showNames);
@@ -186,11 +193,11 @@
     }
 
     function renderFretboard() {
-      const frets = Number(state.fretCount);
+      const { start, end } = mainFretRange();
       const scale = currentScale();
       const scaleSet = new Set(scale);
       const grid = cellGridTemplate();
-      const boardWidth = `${70 + frets * 58}px`;
+      const boardWidth = `${Array.from({ length: end - start + 1 }, (_, index) => start + index).reduce((sum, fret) => sum + (fret === 0 ? 70 : 58), 0)}px`;
       els.fretboard.style.gridTemplateColumns = grid;
       els.fretboard.style.width = boardWidth;
       els.fretboard.style.minWidth = boardWidth;
@@ -207,7 +214,7 @@
         row.className = "string-row";
         row.style.gridTemplateColumns = grid;
         row.style.setProperty("--string-size", `${string.size}px`);
-        for (let fret = 0; fret <= frets; fret += 1) {
+        for (let fret = start; fret <= end; fret += 1) {
           const pc = mod(string.pc + fret, 12);
           const cell = document.createElement("div");
           cell.className = `fret-cell${fret === 0 ? " open" : ""}`;
@@ -245,7 +252,7 @@
 
       els.fretLabels.innerHTML = "";
       els.markerRow.innerHTML = "";
-      for (let fret = 0; fret <= frets; fret += 1) {
+      for (let fret = start; fret <= end; fret += 1) {
         const label = document.createElement("div");
         label.className = `fret-label${fret === 0 ? " open" : ""}`;
         label.textContent = fret === 0 ? t("openString") : fret;

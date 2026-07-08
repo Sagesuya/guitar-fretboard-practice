@@ -63,7 +63,6 @@
         fretCount: state.fretCount,
         visibility: state.visibility,
         solfege: state.solfege,
-        practiceRange: state.practiceRange,
         showNames: state.showNames,
         practiceOverlay: state.practiceOverlay,
         autoNext: state.autoNext,
@@ -142,7 +141,6 @@
       populatePatterns();
       setSelectOptionText(els.visibilitySelect, t("visibilityOptions"));
       setSelectOptionText(els.solfegeSelect, t("solfegeOptions"));
-      setSelectOptionText(els.practiceRangeSelect, t("rangeOptions"));
       setSelectOptionText(els.chordPositionSelect, t("chordPositionOptions"));
       setSelectOptionText(els.practiceType, t("practiceTypeOptions"));
       els.toggleNames.textContent = state.showNames ? t("showNames") : t("hideNames");
@@ -171,7 +169,6 @@
       els.fretCountSelect.value = String(state.fretCount);
       els.visibilitySelect.value = state.visibility;
       els.solfegeSelect.value = state.solfege;
-      els.practiceRangeSelect.value = state.practiceRange;
       els.toggleNames.classList.toggle("active", state.showNames);
       els.togglePracticeOverlay.classList.toggle("active", state.practiceOverlay);
       els.toggleAutoNext.classList.toggle("active", state.autoNext);
@@ -229,7 +226,6 @@
           if (state.chordSelections.get(string.id)?.fret === fret) note.classList.add("chord-selected");
           if (!state.showNames) note.classList.add("hidden-label");
           if (state.visibility === "scaleOnly" && !scaleSet.has(pc)) note.classList.add("muted");
-          if (!isInPracticeRange(fret)) note.classList.add("out-range");
           if (state.chordRecognition && !isInChordPosition(fret)) note.classList.add("chord-window-muted");
           if (state.practiceOverlay && state.question) applyQuestionOverlay(note, pc, fret, string.id);
           note.addEventListener("click", () => handleFretClick({

@@ -98,6 +98,7 @@
     };
 
     const mobileQuery = window.matchMedia("(max-width: 720px)");
+    const handheldLandscapeQuery = window.matchMedia("(hover: none) and (pointer: coarse) and (orientation: landscape)");
 
     const storageKey = "guitar-fretboard-practice-v2";
 
@@ -155,7 +156,11 @@
     }
 
     function isMobileLayout() {
-      return mobileQuery.matches;
+      return mobileQuery.matches || handheldLandscapeQuery.matches;
+    }
+
+    function isHandheldLandscape() {
+      return handheldLandscapeQuery.matches;
     }
 
     function rangeFromValue(value, defaultRange) {
@@ -173,7 +178,9 @@
     }
 
     function mainFretRange() {
-      const autoRange = isMobileLayout()
+      const autoRange = isHandheldLandscape()
+        ? { start: 0, end: Number(state.fretCount) }
+        : isMobileLayout()
         ? { start: 0, end: Math.min(5, Number(state.fretCount)) }
         : { start: 0, end: Number(state.fretCount) };
       return normalizeRange(rangeFromValue(state.fretWindow, autoRange));

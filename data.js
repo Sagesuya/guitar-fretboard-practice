@@ -17,7 +17,14 @@
       harmonicMinor: { labels: { zh: "和声小调", en: "Harmonic minor" }, intervals: [0, 2, 3, 5, 7, 8, 11], degrees: ["1", "2", "b3", "4", "5", "b6", "7"] },
       melodicMinor: { labels: { zh: "爵士旋律小调", en: "Jazz melodic minor" }, intervals: [0, 2, 3, 5, 7, 9, 11], degrees: ["1", "2", "b3", "4", "5", "6", "7"] },
       majorPentatonic: { labels: { zh: "大调五声音阶", en: "Major pentatonic" }, intervals: [0, 2, 4, 7, 9], degrees: ["1", "2", "3", "5", "6"] },
-      minorPentatonic: { labels: { zh: "小调五声音阶", en: "Minor pentatonic" }, intervals: [0, 3, 5, 7, 10], degrees: ["1", "b3", "4", "5", "b7"] }
+      minorPentatonic: { labels: { zh: "小调五声音阶", en: "Minor pentatonic" }, intervals: [0, 3, 5, 7, 10], degrees: ["1", "b3", "4", "5", "b7"] },
+      ionian: { labels: { zh: "伊奥尼亚", en: "Ionian" }, intervals: [0, 2, 4, 5, 7, 9, 11], degrees: ["1", "2", "3", "4", "5", "6", "7"] },
+      dorian: { labels: { zh: "多利亚", en: "Dorian" }, intervals: [0, 2, 3, 5, 7, 9, 10], degrees: ["1", "2", "b3", "4", "5", "6", "b7"] },
+      phrygian: { labels: { zh: "弗里几亚", en: "Phrygian" }, intervals: [0, 1, 3, 5, 7, 8, 10], degrees: ["1", "b2", "b3", "4", "5", "b6", "b7"] },
+      lydian: { labels: { zh: "利底亚", en: "Lydian" }, intervals: [0, 2, 4, 6, 7, 9, 11], degrees: ["1", "2", "3", "#4", "5", "6", "7"] },
+      mixolydian: { labels: { zh: "混合利底亚", en: "Mixolydian" }, intervals: [0, 2, 4, 5, 7, 9, 10], degrees: ["1", "2", "3", "4", "5", "6", "b7"] },
+      aeolian: { labels: { zh: "爱奥尼亚", en: "Aeolian" }, intervals: [0, 2, 3, 5, 7, 8, 10], degrees: ["1", "2", "b3", "4", "5", "b6", "b7"] },
+      locrian: { labels: { zh: "洛克里亚", en: "Locrian" }, intervals: [0, 1, 3, 5, 6, 8, 10], degrees: ["1", "b2", "b3", "4", "b5", "b6", "b7"] }
     };
     const arpeggioFormulas = {
       majorTriad: { labels: { zh: "大三和弦琶音", en: "Major triad" }, intervals: [0, 4, 7], degrees: ["1", "3", "5"] },
